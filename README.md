@@ -42,3 +42,4 @@ npm run dev
 
 * Implement shuffle button
 * Implement repeat button
+* Implement local storage
