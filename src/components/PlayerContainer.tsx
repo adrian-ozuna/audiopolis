@@ -44,7 +44,7 @@ const PlayerContainer: FC = () => {
         } else {
             audioRef.current.pause();
         }
-    }, [isPlaying])
+    }, [isPlaying, currentIndex])
 
     const handleAddSong = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newFile = e.target.files?.[0];
@@ -60,10 +60,8 @@ const PlayerContainer: FC = () => {
             return;
         }
 
-        if (!isPlaying) setCurrentIndex(0);
         setIsPlaying((prev) => !prev);
     };
-
 
     const handleNext = () => {
         if (songs.length > 0) {
@@ -73,9 +71,14 @@ const PlayerContainer: FC = () => {
     };
 
     const handlePrev = () => {
-        if (songs.length > 0) {
-            setCurrentIndex((prevIndex) => (prevIndex - 1 + songs.length) % songs.length);
-            setIsPlaying(true);
+        if (songs.length > 1) {
+            if (audioRef.current.currentTime >= 1) {
+                audioRef.current.currentTime = 0
+            } else {
+                setCurrentIndex((prevIndex) => (prevIndex - 1 + songs.length) % songs.length);
+                setIsPlaying(true);
+            }
+
         }
     };
 
@@ -151,7 +154,7 @@ const PlayerContainer: FC = () => {
                     Add song
                 </label>
 
-                <div className='w-96'>
+                <div className='w-96 flex flex-col gap-y-2'>
                     {songs.length > 0 && songs.map((song, index) => (
                         <SongCard key={index} title={song.name} duration={formatTime(duration)} author="" />
                     ))}
