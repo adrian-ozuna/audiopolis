@@ -37,3 +37,8 @@ npm run dev
    * Fixed bug where upon clicking the "play" button after would restart the playlist.
    * Songs now play automatically upon skipping them.
    * Previous song button now restarts the current playing song if the current time of hasn't exceeded one second.
+
+## To-do
+
+* Implement shuffle button
+* Implement repeat button
